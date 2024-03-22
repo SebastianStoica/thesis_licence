@@ -1,19 +1,38 @@
+
 <?xml version="1.0" ?>
-<robot name="khepera">
-  <link name="base_link">
-    <inertial>
-      <mass value="1.0"/>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
-    </inertial>
-    <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
-      <geometry>
-        <cylinder length="0.1" radius="0.05"/>
-      </geometry>
-    </visual>
-  </link>
-  <webots>
-    <plugin filename="libmy_robot_driver.so" type="licenta.my_robot_driver.MyRobotDriver" />
-  </webots>
+<robot name="Khepera">
+    <webots>
+        <device reference="gps" type="GPS">
+            <ros>
+                <topicName>/gps_sensor</topicName>
+                <alwaysOn>true</alwaysOn>
+            </ros>
+        </device>
+        <device reference="lidar" type="Lidar">
+            <ros>
+                <topicName>/lidar_sensor</topicName>
+                <alwaysOn>true</alwaysOn>
+            </ros>
+        </device>
+        <device reference="us4" type="DEF US4 DistanceSensor">
+            <ros>
+                <topicName>/us4_sensor</topicName>
+                <alwaysOn>true</alwaysOn>
+            </ros>
+        </device> 
+        <device reference="us0" type="DEF US0 DistanceSensor">
+            <ros>
+                <topicName>/us0_sensor</topicName>
+                <alwaysOn>true</alwaysOn>
+            </ros>
+        </device>  
+        <device reference="compass" type="Compass">
+            <ros>
+                <topicName>/sensor_compass</topicName>
+                <alwaysOn>true</alwaysOn>
+            </ros>
+        </device>             
+        <plugin type="licenta.my_robot_driver.MyRobotDriver" />
+    </webots>
 </robot>
+

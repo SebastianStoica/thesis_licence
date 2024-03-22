@@ -1,25 +1,78 @@
 #VRML_SIM R2023a utf8
 
-EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/objects/backgrounds/protos/TexturedBackground.proto"
-EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
-EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2022b/projects/objects/floors/protos/CircleArena.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/floors/protos/RectangleArena.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/shapes/protos/TexturedBoxShape.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/solids/protos/SolidBox.proto"
 
 WorldInfo {
 }
 Viewpoint {
-  orientation 0.2059480575666124 0.872445522605934 -0.44319770720232554 0.9788120171390515
-  position -2.475174206149126 0.376818379387859 2.228984388849098
+  orientation 0.15485999967008604 0.9274156191591814 -0.3404682802285302 0.9119450041420425
+  position -5.492479937462972 1.9966953441175286 6.0211614775259505
+  followType "None"
 }
 TexturedBackground {
 }
 TexturedBackgroundLight {
 }
-CircleArena {
+RectangleArena {
+  translation 1.14 1.15 0.00999438
+  rotation 0 1 0 4.6928012867022945e-06
+  floorSize 2.5 2.5
+  floorTileSize 2 2
+}
+SolidBox {
+  translation 0.300786 -0.395045 0.06
+  rotation 0 0 1 1.8326
+  name "env_box_4"
+  size 0.1 0.2 0.1
+}
+SolidBox {
+  translation 0.292313 -0.80311 0.06
+  rotation 0 0 1 2.35619
+  name "env_box_5"
+  size 0.1 0.3 0.1
+}
+SolidBox {
+  translation 0.42 -1.47 0.06
+  rotation 0 0 1 -0.785395307179586
+  name "env_box_1"
+  size 0.1 0.2 0.1
+}
+SolidBox {
+  translation 0.999819 -1.56898 0.06
+  rotation 0 0 1 -1.3089953071795861
+  name "env_box_3"
+  size 0.2 0.2 0.1
+}
+SolidBox {
+  translation 0.880414 -0.876102 0.06
+  rotation 0 0 1 1.5708
+  name "env_box_2"
+  size 0.1 0.2 0.1
+}
+SolidBox {
+  translation -0.285783 -0.855 0.06
+  rotation 0 0 1 0.523599
+  name "env_box_0"
+  size 0.1 0.3 0.1
+}
+TexturedBoxShape {
+  frontFace FALSE
 }
 Robot {
-  translation -0.710004 -0.16 -0.00246223
-  rotation -9.56812995620223e-05 0.999999995422536 -1.2875699941061946e-07 0.00109911
+  rotation 0 0 1 1.5708
   children [
+    Compass {
+    }
+    GPS {
+    }
+    Lidar {
+      translation 0 0 0.07
+      numberOfLayers 1
+    }
     Group {
       children [
         Transform {
@@ -348,7 +401,6 @@ Robot {
     }
     HingeJoint {
       jointParameters HingeJointParameters {
-        position 1.9004879907509248e-07
         axis 0 1 0
         anchor 0 0 0.0245
       }
@@ -364,8 +416,8 @@ Robot {
         }
       ]
       endPoint DEF LEFT_WHEEL Solid {
-        translation 0 0.045799999999999993 0.0245
-        rotation 0.5773502326147161 -0.5773502326147095 -0.5773503423394448 2.0943948902752783
+        translation 0 0.0458 0.0245
+        rotation 0.5773502691896257 -0.5773502691896257 -0.5773502691896257 2.094395
         children [
           DEF WHEEL Transform {
             rotation 0.5773869352700204 -0.5773319352761864 0.5773319352761864 -2.094339
@@ -391,7 +443,6 @@ Robot {
     }
     HingeJoint {
       jointParameters HingeJointParameters {
-        position 1.9004872517876672e-07
         axis 0 1 0
         anchor 0 0 0.0245
       }
@@ -407,8 +458,8 @@ Robot {
         }
       ]
       endPoint DEF RIGHT_WHEEL Solid {
-        translation 0 -0.045799999999999993 0.0245
-        rotation 0.5773502326147302 -0.5773502326147237 -0.5773503423394163 2.094394890275321
+        translation 0 -0.0458 0.0245
+        rotation 0.5773502691896257 -0.5773502691896257 -0.5773502691896257 2.094395
         children [
           USE WHEEL
         ]
@@ -416,80 +467,6 @@ Robot {
         boundingObject USE WHEEL
         physics USE PHYSICS_WHEELS
       }
-    }
-    DEF DS0 DistanceSensor {
-      translation -0.0404 0.0496 0.027
-      rotation -0.3181771620968283 -0.6703593415176701 -0.6703593415176701 -2.525496
-      children [
-        Group {
-          children [
-            Transform {
-              translation 0 0 -0.002
-              children [
-                Shape {
-                  appearance PBRAppearance {
-                    baseColor 0 0 1
-                    metalness 0
-                  }
-                  geometry DEF SPHERE Sphere {
-                    radius 0.0014
-                  }
-                }
-              ]
-            }
-            Transform {
-              translation 0 0 0.002
-              children [
-                Shape {
-                  appearance DEF BLACK PBRAppearance {
-                    baseColor 0.101961 0.101961 0.101961
-                    roughness 0.45
-                    metalness 0
-                  }
-                  geometry USE SPHERE
-                }
-              ]
-            }
-            Transform {
-              translation -0.0025 0 0
-              children [
-                Shape {
-                  appearance USE BLACK
-                  geometry Box {
-                    size 0.005 0.006 0.01
-                  }
-                }
-              ]
-            }
-          ]
-        }
-      ]
-      name "ds0"
-      model "Khepera III infra-red sensor"
-      lookupTable [
-        0 3983 0.0015
-        0.0045 3967 0.001
-        0.009 3947 0.0024
-        0.0135 3561 0.0955
-        0.018 2645 0.1913
-        0.0225 1945 0.2228
-        0.027 1426 0.2336
-        0.0315 1093 0.2315
-        0.036 841 0.2403
-        0.0405 653 0.2669
-        0.0495 420 0.2315
-        0.0585 284 0.2059
-        0.0675 193 0.1462
-        0.0765 138 0.1477
-        0.0855 101 0.1195
-        0.0945 78 0.1478
-        0.1035 60 0.2162
-        0.153 23 0.5235
-        0.252 11 0.8371
-        0.351 10 0.9243
-        0.4455 7 1
-      ]
-      type "infra-red"
     }
     DEF DS1 DistanceSensor {
       translation 0.0148 0.063 0.027
@@ -835,80 +812,6 @@ Robot {
         }
       ]
       name "ds5"
-      model "Khepera III infra-red sensor"
-      lookupTable [
-        0 3983 0.0015
-        0.0045 3967 0.001
-        0.009 3947 0.0024
-        0.0135 3561 0.0955
-        0.018 2645 0.1913
-        0.0225 1945 0.2228
-        0.027 1426 0.2336
-        0.0315 1093 0.2315
-        0.036 841 0.2403
-        0.0405 653 0.2669
-        0.0495 420 0.2315
-        0.0585 284 0.2059
-        0.0675 193 0.1462
-        0.0765 138 0.1477
-        0.0855 101 0.1195
-        0.0945 78 0.1478
-        0.1035 60 0.2162
-        0.153 23 0.5235
-        0.252 11 0.8371
-        0.351 10 0.9243
-        0.4455 7 1
-      ]
-      type "infra-red"
-    }
-    DEF DS6 DistanceSensor {
-      translation 0.0148 -0.063 0.027
-      rotation -0.6656508320932598 0.5276878668936547 0.5276878668936547 -1.966995
-      children [
-        Group {
-          children [
-            Transform {
-              translation 0 0 -0.002
-              children [
-                Shape {
-                  appearance PBRAppearance {
-                    baseColor 0 0 1
-                    metalness 0
-                  }
-                  geometry DEF SPHERE Sphere {
-                    radius 0.0014
-                  }
-                }
-              ]
-            }
-            Transform {
-              translation 0 0 0.002
-              children [
-                Shape {
-                  appearance DEF BLACK PBRAppearance {
-                    baseColor 0.101961 0.101961 0.101961
-                    roughness 0.45
-                    metalness 0
-                  }
-                  geometry USE SPHERE
-                }
-              ]
-            }
-            Transform {
-              translation -0.0025 0 0
-              children [
-                Shape {
-                  appearance USE BLACK
-                  geometry Box {
-                    size 0.005 0.006 0.01
-                  }
-                }
-              ]
-            }
-          ]
-        }
-      ]
-      name "ds6"
       model "Khepera III infra-red sensor"
       lookupTable [
         0 3983 0.0015
@@ -1634,7 +1537,7 @@ Robot {
     }
   ]
   name "Khepera"
-  model "Khepera"
+  model "Khepera "
   boundingObject Group {
     children [
       Transform {
