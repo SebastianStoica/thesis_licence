@@ -24,7 +24,9 @@ setup(
     entry_points={
         'console_scripts': [
             'my_robot_driver = licenta.my_robot_driver:main',
-            'obstacle_avoider = licenta.obstacle_avoider:main'
+            'tf2_transform = licenta.tf2_transform:main',
+             'obstacle = licenta.obstacle:main'
+
         ],
     },
 )
