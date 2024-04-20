@@ -1,0 +1,47 @@
+[0.652s] Invoking command in '/home/sebi/thesis_licence': PYTHONPATH=/home/sebi/thesis_licence/build/licenta/prefix_override:/home/sebi/thesis_licence/install/licenta/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base build/licenta build --build-base /home/sebi/thesis_licence/build/licenta/build install --record /home/sebi/thesis_licence/build/licenta/install.log --single-version-externally-managed install_data
+[0.858s] running egg_info
+[0.858s] creating build/licenta/licenta.egg-info
+[0.858s] writing build/licenta/licenta.egg-info/PKG-INFO
+[0.859s] writing dependency_links to build/licenta/licenta.egg-info/dependency_links.txt
+[0.859s] writing entry points to build/licenta/licenta.egg-info/entry_points.txt
+[0.859s] writing requirements to build/licenta/licenta.egg-info/requires.txt
+[0.859s] writing top-level names to build/licenta/licenta.egg-info/top_level.txt
+[0.861s] writing manifest file 'build/licenta/licenta.egg-info/SOURCES.txt'
+[0.862s] reading manifest file 'build/licenta/licenta.egg-info/SOURCES.txt'
+[0.863s] writing manifest file 'build/licenta/licenta.egg-info/SOURCES.txt'
+[0.864s] running build
+[0.864s] running build_py
+[0.864s] creating /home/sebi/thesis_licence/build/licenta/build
+[0.865s] creating /home/sebi/thesis_licence/build/licenta/build/lib
+[0.865s] creating /home/sebi/thesis_licence/build/licenta/build/lib/licenta
+[0.865s] copying licenta/my_robot_driver.py -> /home/sebi/thesis_licence/build/licenta/build/lib/licenta
+[0.865s] copying licenta/__init__.py -> /home/sebi/thesis_licence/build/licenta/build/lib/licenta
+[0.865s] copying licenta/obstacle_avoider.py -> /home/sebi/thesis_licence/build/licenta/build/lib/licenta
+[0.866s] running install
+[0.866s] running install_lib
+[0.867s] creating /home/sebi/thesis_licence/install/licenta/lib/python3.8/site-packages/licenta
+[0.867s] copying /home/sebi/thesis_licence/build/licenta/build/lib/licenta/my_robot_driver.py -> /home/sebi/thesis_licence/install/licenta/lib/python3.8/site-packages/licenta
+[0.868s] copying /home/sebi/thesis_licence/build/licenta/build/lib/licenta/__init__.py -> /home/sebi/thesis_licence/install/licenta/lib/python3.8/site-packages/licenta
+[0.868s] copying /home/sebi/thesis_licence/build/licenta/build/lib/licenta/obstacle_avoider.py -> /home/sebi/thesis_licence/install/licenta/lib/python3.8/site-packages/licenta
+[0.868s] byte-compiling /home/sebi/thesis_licence/install/licenta/lib/python3.8/site-packages/licenta/my_robot_driver.py to my_robot_driver.cpython-38.pyc
+[0.869s] byte-compiling /home/sebi/thesis_licence/install/licenta/lib/python3.8/site-packages/licenta/__init__.py to __init__.cpython-38.pyc
+[0.870s] byte-compiling /home/sebi/thesis_licence/install/licenta/lib/python3.8/site-packages/licenta/obstacle_avoider.py to obstacle_avoider.cpython-38.pyc
+[0.870s] running install_data
+[0.871s] creating /home/sebi/thesis_licence/install/licenta/share/ament_index
+[0.871s] creating /home/sebi/thesis_licence/install/licenta/share/ament_index/resource_index
+[0.871s] creating /home/sebi/thesis_licence/install/licenta/share/ament_index/resource_index/packages
+[0.871s] copying resource/licenta -> /home/sebi/thesis_licence/install/licenta/share/ament_index/resource_index/packages
+[0.872s] creating /home/sebi/thesis_licence/install/licenta/share/licenta/launch
+[0.872s] copying launch/robot_launch.py -> /home/sebi/thesis_licence/install/licenta/share/licenta/launch
+[0.872s] creating /home/sebi/thesis_licence/install/licenta/share/licenta/worlds
+[0.872s] copying worlds/world_new_obstcl.wbt -> /home/sebi/thesis_licence/install/licenta/share/licenta/worlds
+[0.876s] creating /home/sebi/thesis_licence/install/licenta/share/licenta/resource
+[0.877s] copying resource/khepera.urdf -> /home/sebi/thesis_licence/install/licenta/share/licenta/resource
+[0.878s] copying package.xml -> /home/sebi/thesis_licence/install/licenta/share/licenta
+[0.878s] running install_egg_info
+[0.879s] Copying build/licenta/licenta.egg-info to /home/sebi/thesis_licence/install/licenta/lib/python3.8/site-packages/licenta-0.0.0-py3.8.egg-info
+[0.881s] running install_scripts
+[0.896s] Installing my_robot_driver script to /home/sebi/thesis_licence/install/licenta/lib/licenta
+[0.897s] Installing obstacle_avoider script to /home/sebi/thesis_licence/install/licenta/lib/licenta
+[0.897s] writing list of installed files to '/home/sebi/thesis_licence/build/licenta/install.log'
+[0.916s] Invoked command in '/home/sebi/thesis_licence' returned '0': PYTHONPATH=/home/sebi/thesis_licence/build/licenta/prefix_override:/home/sebi/thesis_licence/install/licenta/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base build/licenta build --build-base /home/sebi/thesis_licence/build/licenta/build install --record /home/sebi/thesis_licence/build/licenta/install.log --single-version-externally-managed install_data
