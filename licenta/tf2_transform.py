@@ -27,7 +27,7 @@ class WebotsRobotTFBroadcaster(Node):
         self.theta = np.radians(msg.data)
         
 
-    def gps_data(self, msg):
+    def gps_data(self, msg): 
         self.position_x = msg.point.x
         self.position_y = msg.point.y
     
@@ -53,7 +53,6 @@ class WebotsRobotTFBroadcaster(Node):
         t.transform.rotation.y = matrix_rotation.as_quat()[1]
         t.transform.rotation.z = matrix_rotation.as_quat()[2]
         t.transform.rotation.w = matrix_rotation.as_quat()[3]
-       
 
         self.tf_broadcaster.sendTransform(t)
 

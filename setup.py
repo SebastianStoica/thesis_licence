@@ -1,6 +1,6 @@
 from setuptools import setup
 
-package_name = 'licenta'
+package_name = 'thesis_licence'
 data_files = []
 data_files.append(('share/ament_index/resource_index/packages', ['resource/' + package_name]))
 data_files.append(('share/' + package_name + '/launch', ['launch/robot_launch.py']))
@@ -25,7 +25,7 @@ setup(
         'console_scripts': [
             'my_robot_driver = licenta.my_robot_driver:main',
             'tf2_transform = licenta.tf2_transform:main',
-             'obstacle = licenta.obstacle:main'
+            'obstacle = licenta.obstacle:main'
 
         ],
     },

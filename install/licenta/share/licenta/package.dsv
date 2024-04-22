@@ -1,6 +1,0 @@
-source;share/licenta/hook/pythonpath.ps1
-source;share/licenta/hook/pythonpath.dsv
-source;share/licenta/hook/pythonpath.sh
-source;share/licenta/hook/ament_prefix_path.ps1
-source;share/licenta/hook/ament_prefix_path.dsv
-source;share/licenta/hook/ament_prefix_path.sh

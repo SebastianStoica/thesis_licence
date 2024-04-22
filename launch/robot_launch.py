@@ -22,12 +22,12 @@ def generate_launch_description():
                     ]
     )
     tf2_transform = Node(
-        package='licenta',
+        package='thesis_licence',
         executable='tf2_transform',
         output='screen'
     )
     obstacle = Node(
-        package='licenta',
+        package='thesis_licence',
         executable='obstacle',
         output='screen'
     )

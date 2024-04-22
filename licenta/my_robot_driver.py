@@ -2,7 +2,7 @@ import rclpy
 from geometry_msgs.msg import Twist,PointStamped
 from math import atan2
 import numpy as np
-from sensor_msgs.msg import LaserScan
+
 from std_msgs.msg import Float64
 
 
@@ -26,7 +26,7 @@ class MyRobotDriver:
         self.__right_motor.setVelocity(0)
         self.__target_twist = Twist()
         self.__target_gps = PointStamped()
-        self.lidar_data = LaserScan()
+
         self.max_linear_velocity = 19.0
         self.max_angular_velocity = 0.5
         self.linear_velocity = 0.0
@@ -35,7 +35,6 @@ class MyRobotDriver:
         self.__node = rclpy.create_node('my_robot_driver')
         self.__node.create_subscription(Twist, 'cmd_vel', self.cmd_vel_callback, 10)
         self.__node.create_subscription(PointStamped, 'gps_sensor', self.gps_sensor_callback, 10)
-        self.__node.create_subscription(LaserScan, 'lidar_sensor', self.lidar_sensor_callback, 10)
         self.compass_publisher = self.__node.create_publisher(Float64, 'compass_sensor', 10)
 
         self.__node.get_logger().info("Start thesis")
@@ -50,9 +49,6 @@ class MyRobotDriver:
     def gps_sensor_callback(self,msg):
         self.__target_gps = msg
 
-    def lidar_sensor_callback(self,msg):
-        self.lidar_data = msg
-
     
     def step(self):
         rclpy.spin_once(self.__node, timeout_sec=0)
@@ -64,6 +60,7 @@ class MyRobotDriver:
             theta = theta + 360
         x_pose = self.__target_gps.point.x
         y_pose = self.__target_gps.point.y
+       
         compass_msg.data = theta
 
         self.compass_publisher.publish(compass_msg)
