@@ -23,9 +23,9 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'my_robot_driver = licenta.my_robot_driver:main',
-            'tf2_transform = licenta.tf2_transform:main',
-            'obstacle = licenta.obstacle:main'
+            'my_robot_driver = thesis_licence.my_robot_driver:main',
+            'tf2_transform = thesis_licence.tf2_transform:main',
+            'obstacle = thesis_licence.obstacle:main'
 
         ],
     },

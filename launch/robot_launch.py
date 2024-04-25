@@ -9,7 +9,7 @@ from webots_ros2_driver.utils import controller_url_prefix
 
 
 def generate_launch_description():
-    package_dir = get_package_share_directory('licenta')
+    package_dir = get_package_share_directory('thesis_licence')
     robot_description = pathlib.Path(os.path.join(package_dir, 'resource', 'khepera.urdf')).read_text()
 
     my_robot_driver = Node(

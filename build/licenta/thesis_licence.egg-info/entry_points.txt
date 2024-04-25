@@ -1,0 +1,5 @@
+[console_scripts]
+my_robot_driver = thesis_licence.my_robot_driver:main
+obstacle = thesis_licence.obstacle:main
+tf2_transform = thesis_licence.tf2_transform:main
+

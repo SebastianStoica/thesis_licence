@@ -1,0 +1,11 @@
+[0.585s] Invoking command in '/home/sebi/thesis_licence': PYTHONPATH=/home/sebi/thesis_licence/build/licenta/prefix_override:/home/sebi/thesis_licence/install/licenta/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base build/licenta build --build-base /home/sebi/thesis_licence/build/licenta/build install --record /home/sebi/thesis_licence/build/licenta/install.log --single-version-externally-managed install_data
+[0.795s] running egg_info
+[0.795s] creating build/licenta/thesis_licence.egg-info
+[0.796s] writing build/licenta/thesis_licence.egg-info/PKG-INFO
+[0.796s] writing dependency_links to build/licenta/thesis_licence.egg-info/dependency_links.txt
+[0.796s] writing entry points to build/licenta/thesis_licence.egg-info/entry_points.txt
+[0.796s] writing requirements to build/licenta/thesis_licence.egg-info/requires.txt
+[0.796s] writing top-level names to build/licenta/thesis_licence.egg-info/top_level.txt
+[0.797s] writing manifest file 'build/licenta/thesis_licence.egg-info/SOURCES.txt'
+[0.799s] error: package directory 'thesis_licence' does not exist
+[0.814s] Invoked command in '/home/sebi/thesis_licence' returned '1': PYTHONPATH=/home/sebi/thesis_licence/build/licenta/prefix_override:/home/sebi/thesis_licence/install/licenta/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base build/licenta build --build-base /home/sebi/thesis_licence/build/licenta/build install --record /home/sebi/thesis_licence/build/licenta/install.log --single-version-externally-managed install_data
