@@ -10,7 +10,7 @@ import math
 import numpy as np
 from std_msgs.msg import Float64
 import matplotlib.pyplot as plt
-
+import time
 
 class ObstacleAvoider(Node):
     def __init__(self):
@@ -23,7 +23,8 @@ class ObstacleAvoider(Node):
             self.tf_callback,
             10
         )
-        self.path_points = []
+        self.path_points_x = []
+        self.path_points_y =[]
         self.total_points = []
         self.theta = Float64()
         self.position  = PointStamped()
@@ -33,7 +34,7 @@ class ObstacleAvoider(Node):
         self.publisher_ = self.create_publisher(Twist, 'cmd_vel', 10)
         self.obstacle_polygons = []
         self.start = (0.0, 0.0)
-        self.goal = (2.0, 2.0)
+        self.goal = (1.7, 1.2)
         self.obstacles = {
             'box0': {'pose': (1, 1), 'size': (0.1, 0.3),'rotation': (0.523599)},
             'box1': {'pose': (0.299971, 1.25253), 'size': (0.1, 0.2), 'rotation':(-0.785395)},
@@ -46,38 +47,64 @@ class ObstacleAvoider(Node):
 
     def compass_callback(self,msg):
         self.theta = msg
-        print(f"theta este: {self.theta}")
+
     def gps_data(self,msg):
         self.position = msg
 
-
     def move_khepera(self):
-        points = self.path_points
-        pose_current_x = self.position.point.x
-        pose_current_y = self.position.point.y
-        angle_current = self.theta
-        angle_current =np.radians(angle_current.data)
-        print(f"lung de vector este :{len(points)}")
 
-        delta_x = points[1][0] - pose_current_x
-        delta_y = points[1][1] - pose_current_y
-        delta_current_and_f = math.sqrt(delta_x**2 + delta_y**2)
+        current_angle = math.radians(self.theta.data)
+        print(f"unghiul curent este: {current_angle}")
+        points_current = self.position.point.x,self.position.point.y
+        #print(points_current)
+        x_next = self.path_points_x[1]
+        y_next =self.path_points_y[1]
+
+        print(f"x next is : {x_next} and y next is: {y_next}")
+        delta_x = x_next - points_current[0]
+        delta_y = y_next - points_current[1]
         angle = math.atan2(delta_y,delta_x)
-        a = angle - angle_current
         
-        print(f"delta x este: {delta_x} si delta y este: {delta_y}, iar  unghiul calc  este {a}")
-        print(f"punctul prim este: {points[0]}")
+        angle_diff = angle - current_angle
+        print(f"angle_diff este : {angle_diff}")
+
+        distance = math.sqrt(delta_x**2 + delta_y**2)
+
         twist = Twist()
-        if abs(a) > 0.001:  
-            twist.angular.z = np.sign(a) * 0.04  
-        else:
-            twist.angular.z = 0.0
-        if twist.angular.z==0 and delta_current_and_f > 0.001:
-            twist.linear.x =0.5
-        if delta_current_and_f <0.001 :
+        if abs(angle_diff) > 0.01:
+            twist.angular.z = np.sign(angle_diff)*0.03
+            twist.linear.x = 0.0
+        if distance > 0.01 and twist.angular.z ==0.0:
             twist.angular.z =0.0
+            twist.linear.x = 0.1
+        if distance <0.01 and twist.angular.z ==0.0:
             twist.linear.x =0.0
-        
+            twist.angular.z =0.0
+    #    self.publisher_.publish(twist)
+
+      #  print(self.path_points)
+        if twist.angular.z ==0.0 and twist.linear.x ==0.0:
+            self.path_points_x.pop(0)
+            self.path_points_y.pop(0)
+            print(f"noul punct este: {self.path_points_x} and {self.path_points_y}")
+        print(len(self.path_points_x))
+          #  points_current = x_next,y_next
+        if len(self.path_points_x)==1 and len(self.path_points_y) ==1:
+            dx = self.goal[0] - points_current[0]
+            dy = self.goal[1] - points_current[1]
+            ang = math.atan2(dy,dx)
+            ag_dif = ang - current_angle
+            dis_to_goal = math.sqrt(dx**2 + dy**2)
+            if abs(ag_dif) > 0.01:
+                twist.angular.z = np.sign(ag_dif)*0.03
+                twist.linear.x = 0.0
+            if dis_to_goal > 0.01 and twist.angular.z ==0:
+                twist.linear.x = 0.1
+                twist.angular.z = 0.0
+            if dis_to_goal <0.01 and twist.angular.z ==0.0:
+                twist.linear.x =0.0
+                twist.angular.z =0.0
+                self.get_logger().info("PUNCT ATINS")
         self.publisher_.publish(twist)
 
     def print_obstacles(self):
@@ -85,16 +112,8 @@ class ObstacleAvoider(Node):
             pose = obstacle['pose']
             size = obstacle['size']
             rotation = obstacle['rotation']
-           
-           # self.get_logger().info(f"Obstacle {name}:")
-            #self.get_logger().info(f"    Pose: {pose}")
-            #self.get_logger().info(f"    Size: {size}")
             euler_angle = rotation
-        
             a = self.calc_init_obstcl(size)
-          #  self.get_logger().info(f"    ini: {a}")
-           # self.get_logger().info(f"    iniAx: {a[0][0]}")
-            #self.get_logger().info(f"    ini: {len(a)}")
             b = list(self.calc_pose_obstcle(a, angle=euler_angle, pose=pose))
             self.obstacle_polygon = Polygon(b)
             self.obstacle_polygons.append(self.obstacle_polygon)
@@ -119,8 +138,8 @@ class ObstacleAvoider(Node):
     def generate_rrt(self):
         start = self.start
         goal = self.goal
-        step_size = 0.5
-        max_iter = 100
+        step_size = 0.8
+        max_iter = 10000
         bounds = [(0, 2.3), (0, 2.3)]  
 
         rrt_planner = RRT(start, goal, step_size, max_iter, bounds, self.obstacle_polygons)
@@ -138,9 +157,10 @@ class ObstacleAvoider(Node):
                     print("Point is inside an obstacle!")
         else:
             print("Failed to generate path!")
-        self.path_points = path
-        self.get_logger().info(f"All generated points: {self.path_points}")
-        
+        self.get_logger().info(f"path ul esteee : {path}")
+        self.path_points_x = [point[0] for point in path]
+        self.path_points_y= [point[1] for point in path]
+        self.get_logger().info(f"points y is {self.path_points_y} and points x is {self.path_points_x}")
         return path
 
         
