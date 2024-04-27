@@ -10,7 +10,7 @@ import math
 import numpy as np
 from std_msgs.msg import Float64
 import matplotlib.pyplot as plt
-import time
+
 
 class ObstacleAvoider(Node):
     def __init__(self):
@@ -34,7 +34,7 @@ class ObstacleAvoider(Node):
         self.publisher_ = self.create_publisher(Twist, 'cmd_vel', 10)
         self.obstacle_polygons = []
         self.start = (0.0, 0.0)
-        self.goal = (1.7, 1.2)
+        self.goal = (2.04364, 2.03687)
         self.obstacles = {
             'box0': {'pose': (1, 1), 'size': (0.1, 0.3),'rotation': (0.523599)},
             'box1': {'pose': (0.299971, 1.25253), 'size': (0.1, 0.2), 'rotation':(-0.785395)},
@@ -43,7 +43,7 @@ class ObstacleAvoider(Node):
             'box4': {'pose': (1.9554, 1.6204), 'size': (0.1, 0.2),'rotation': (1.8326)},
             'box5': {'pose': (0.6, 0.3), 'size': (0.1, 0.3), 'rotation':(2.35619)}
         }
-        self.create_timer(0.01,self.move_khepera)
+        self.create_timer(0.001,self.move_khepera)
 
     def compass_callback(self,msg):
         self.theta = msg
@@ -54,46 +54,49 @@ class ObstacleAvoider(Node):
     def move_khepera(self):
 
         current_angle = math.radians(self.theta.data)
-        print(f"unghiul curent este: {current_angle}")
+       # print(f"unghiul curent este: {current_angle}")
         points_current = self.position.point.x,self.position.point.y
         #print(points_current)
-        x_next = self.path_points_x[1]
-        y_next =self.path_points_y[1]
-
-        print(f"x next is : {x_next} and y next is: {y_next}")
-        delta_x = x_next - points_current[0]
-        delta_y = y_next - points_current[1]
-        angle = math.atan2(delta_y,delta_x)
         
-        angle_diff = angle - current_angle
-        print(f"angle_diff este : {angle_diff}")
-
-        distance = math.sqrt(delta_x**2 + delta_y**2)
-
         twist = Twist()
-        if abs(angle_diff) > 0.01:
-            twist.angular.z = np.sign(angle_diff)*0.03
-            twist.linear.x = 0.0
-        if distance > 0.01 and twist.angular.z ==0.0:
-            twist.angular.z =0.0
-            twist.linear.x = 0.1
-        if distance <0.01 and twist.angular.z ==0.0:
-            twist.linear.x =0.0
-            twist.angular.z =0.0
-    #    self.publisher_.publish(twist)
+        if len(self.path_points_x)>1 and len(self.path_points_y) > 1:
+            x_next = self.path_points_x[1]
+            y_next =self.path_points_y[1]
 
-      #  print(self.path_points)
-        if twist.angular.z ==0.0 and twist.linear.x ==0.0:
-            self.path_points_x.pop(0)
-            self.path_points_y.pop(0)
-            print(f"noul punct este: {self.path_points_x} and {self.path_points_y}")
-        print(len(self.path_points_x))
+           # print(f"x next is : {x_next} and y next is: {y_next}")
+            delta_x = x_next - points_current[0]
+            delta_y = y_next - points_current[1]
+            angle = math.atan2(delta_y,delta_x)
+
+            angle_diff = angle - current_angle
+            angle_diff = np.angle(np.exp(1j * angle_diff))
+           
+           # self.get_logger().info(f"angle_diff este : {angle_diff}")
+
+            distance = math.sqrt(delta_x**2 + delta_y**2)
+
+            if abs(angle_diff) > 0.01:
+                twist.angular.z = np.sign(angle_diff)*0.06
+                twist.linear.x = 0.0
+            if distance > 0.01 and twist.angular.z ==0.0:
+                twist.angular.z =0.0
+                twist.linear.x = 0.1
+            if distance <0.01 and twist.angular.z ==0.0:
+                twist.linear.x =0.0
+                twist.angular.z =0.0
+ 
+            if twist.angular.z ==0.0 and twist.linear.x ==0.0:
+                self.path_points_x.pop(0)
+                self.path_points_y.pop(0)
+                #print(f"noul punct este: {self.path_points_x} and {self.path_points_y}")
+           # print(len(self.path_points_x))
           #  points_current = x_next,y_next
-        if len(self.path_points_x)==1 and len(self.path_points_y) ==1:
+        else:
             dx = self.goal[0] - points_current[0]
             dy = self.goal[1] - points_current[1]
             ang = math.atan2(dy,dx)
             ag_dif = ang - current_angle
+            ag_dif = np.angle(np.exp(1j * ag_dif))
             dis_to_goal = math.sqrt(dx**2 + dy**2)
             if abs(ag_dif) > 0.01:
                 twist.angular.z = np.sign(ag_dif)*0.03
@@ -138,7 +141,7 @@ class ObstacleAvoider(Node):
     def generate_rrt(self):
         start = self.start
         goal = self.goal
-        step_size = 0.8
+        step_size = 0.1
         max_iter = 10000
         bounds = [(0, 2.3), (0, 2.3)]  
 
